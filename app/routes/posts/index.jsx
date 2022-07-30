@@ -28,10 +28,8 @@ export const loader = async () => {
 			}),
 		}),
 	};
-  const posts = await data.posts.json();
-  const results = posts.data.listPosts.data;
-
-  console.log(results);
+	const posts = await data.posts.json();
+	const results = posts.data.listPosts.data;
 
 	return results;
 };
@@ -40,14 +38,58 @@ export default function PostItem() {
 	const results = useLoaderData();
 	return (
 		<>
-			<h1>Posts</h1>
-			<ul>
+			<h1 className='text-3xl text-center font-bold mt-40"'>Blog Posts</h1>
+			<div className="md:flex flex-wrap md:justify-evenly md:items-center space-y-4 mt-8 px-4 overflow-hidden">
 				{results.map((post) => (
-					<li key={post.slug}>
-						<Link to={post.slug}>{post.title}</Link>
-					</li>
+					<div
+						key={post.slug}
+						className="max-w-md bg-white rounded-lg  dark:bg-gray-800 dark:border-gray-700 gap-2"
+					>
+						<img className="w-full" src={post.featuredImage} alt={post.title} />
+						<div>
+							<Link to={post.slug}>
+								<h1 className="mb-2 text-2xl ml-3 font-bold tracking-tight text-gray-900 dark:text-white">
+									{post.title}
+								</h1>
+							</Link>
+
+							<p className="mb-3 font-normal ml-3 text-gray-700 dark:text-gray-400">
+								{post.description}
+							</p>
+							<div className="flex justify-between items-center">
+								<div className="flex justify-between items-center gap-2">
+									<div className="rounded-full w-7 ml-3 h-7 overflow-hidden">
+										<img
+											src={post.authors.picture}
+											className="w-fit h-fit"
+											alt=""
+										/>
+									</div>
+									<p>{post.authors.name}</p>
+								</div>
+								<Link
+									to={post.slug}
+									className="cursor-pointer inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+								>
+									Read more
+									<svg
+										className="ml-2 -mr-1 w-4 h-4"
+										fill="currentColor"
+										viewBox="0 0 20 20"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+											clip-rule="evenodd"
+										></path>
+									</svg>
+								</Link>
+							</div>
+						</div>
+					</div>
 				))}
-			</ul>
+			</div>
 		</>
 	);
 }
