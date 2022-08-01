@@ -83,7 +83,7 @@ export default function Slug() {
 					<img
 						src={post.featuredImage}
 						alt={post.title}
-						className="object-top h-full w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg"
+						className="object-top w-200  object-cover shadow-lg rounded-t-lg lg:rounded-lg"
 					/>
 				</figure>
 				<RichTextRenderer data={post.body} />
